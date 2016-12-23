@@ -68,6 +68,24 @@ def deploy():
 
     # create self-follows for all users
     User.add_self_follows()
+    
+@manager.command    
+def initdata():
+    from flask.ext.migrate import upgrade
+    from app.models import Role, User
+    
+    upgrade()
+    Role.insert_roles()
+    User.generate_fake(100)
+    Post.generate_fake(100)
+    User.add_self_follows()
+    
+@manager.command
+def drop():
+    """
+    drop the database
+    """
+    db.drop_all()        
 
 
 if __name__ == '__main__':
