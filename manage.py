@@ -74,7 +74,7 @@ def initdata():
     from flask.ext.migrate import upgrade
     from app.models import Role, User
     
-    upgrade()
+    
     Role.insert_roles()
     User.generate_fake(100)
     Post.generate_fake(100)
@@ -85,7 +85,8 @@ def drop():
     """
     drop the database
     """
-    db.drop_all()        
+    db.drop_all()  
+    db.create_all()    
 
 
 if __name__ == '__main__':
